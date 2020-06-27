@@ -87,3 +87,25 @@ for line in sys.stdin:
     a, b = map(int, line.split())
     print(a + b)
 ```
+
+# 실습1
+## max
+```python
+if a>40: a=40
+max(a,40)
+```
+
+# 1차원 배열, 함수
+## list, string 유용한 함수
+```python
+mylist.index(element)   # index of element  
+mystring.count(string)  # number of string
+list(map(int, '12345')) # [1,2,3,4,5]
+```
+## 소수점 표시
+반올림 : round(n,2) # 소수점 2번째 자리까지 반올림  
+출력 : print("%.2f" % n) # 소수점 2번째 자리까지 표시
+
+# 문자열
+## 아스키 코드
+ord()함수과 chr()함수를 사용하면 간단히 바꿀수 있습니다.
