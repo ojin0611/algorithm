@@ -1,6 +1,12 @@
 # 백준 알고리즘 (단계별)
 단계별 풀이하다가 알게된 (알고있는 중요한) 정보들을 기록하는 공간   
 https://www.acmicpc.net/step  
+목차  
+- 입출력과 사친연산
+- if문
+- for문
+
+
 사용언어 : Python3
 
 # 입출력과 사칙연산
@@ -44,3 +50,40 @@ print((a-(b<45))%24,(b-45)%60)
 ```
 b(분)가 45 이하면 a(시)에서 1을 빼준다.  
 나머지를 이용해 음수를 처리한다.
+
+# for문 / while문
+## input() 대신 sys.stdin
+빠른 속도를 위해 input 대신 다른 함수를 이용한다.
+```python
+import sys
+
+T = int(input())
+for i in range(T):
+    a,b = map(int, sys.stdin.readline().split())
+    print(a+b)
+```
+
+## 문자열 포맷팅
+`str.format()` & `f-string`  
+```python
+string = 'Case #{n}: {a} + {b} = {a_plus_b}'
+print(string.format(n=i+1, a=a, b=b, a_plus_b=a+b))
+# Case #1: 10 + 7 = 17
+```
+[https://brownbears.tistory.com/421]
+
+## EOF
+EOF = End Of File. 파일의 끝  
+파일 입력 시, 파일의 길이가 정해져있지 않는 경우 파일 끝을 알려주는 표시.  
+Python으로 입력 파일을 받을 때는, try-except 구문을 통해 EOF 에러가 발생하면 파일이 끝난 것으로 간주한다.
+
+[문제](https://www.acmicpc.net/problem/10951)  
+[풀이](https://sozerodev.tistory.com/30)  
+예외처리 안하는 방법
+```python
+import sys
+ 
+for line in sys.stdin:
+    a, b = map(int, line.split())
+    print(a + b)
+```
