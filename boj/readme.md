@@ -95,17 +95,54 @@ if a>40: a=40
 max(a,40)
 ```
 
-# 1차원 배열, 함수
-## list, string 유용한 함수
+# 1차원 배열, 함수, 문자열
+## 유용한 함수
 ```python
-mylist.index(element)   # index of element  
-mystring.count(string)  # number of string
+# list
+[10,20,30,40].index(30) # 2 (index of element)
 list(map(int, '12345')) # [1,2,3,4,5]
+
+# string
+'MISSISSIPI'.count('I') # 3 (number of string)
+'MISSISSIPI'.find('S')  # 2 (1st place of string / 없으면 -1 return)
+set('MISSISSIPI')       # ('M','I','S','P')
+mystring.split()        # 공백, 탭, 엔터 모두 분리해줌
+'ABCDE'[::-1]           # 'EDCBA'
+'23'.zfill(4)           # '0023'
+
+max_idx = [idx for idx, c in enumerate(count) if c==max(count)] # 리스트 내 최대값의 인덱스 모두 찾기
 ```
 ## 소수점 표시
 반올림 : round(n,2) # 소수점 2번째 자리까지 반올림  
+올림 : math.ceil(n)  이 때 소수점 컨트롤을 하려면 math.ceil(n*10) / 10
+내림 : math.floor(n)   
 출력 : print("%.2f" % n) # 소수점 2번째 자리까지 표시
 
 # 문자열
 ## 아스키 코드
-ord()함수과 chr()함수를 사용하면 간단히 바꿀수 있습니다.
+ord()함수와 chr()함수를 사용하면 간단히 바꿀수 있습니다.  
+[아스키 코드표](https://lsjsj92.tistory.com/201)
+```python
+ord('A') # 65
+chr(75) # K
+```
+
+## 크로아티아 문자
+mystring에 string_list = ['aa','bb','cc']의 원소가 몇 개 있는지 확인하고싶을 때 : replace
+
+```python
+string_list = ['c=', 'c-', 'dz=', 'd-', 'lj', 'nj', 's=', 'z='] 
+mystring = input() 
+for s in string_list: 
+    mystring = mystring.replace(s, '*') 
+print(len(alpha)) # 전체 문자 개수
+place(alpha.count('*')) # 치환된 문자 개수
+```
+
+## 정렬
+key에 함수가 들어가면, list에 있는 각 원소에 함수를 씌우고 그 반환값을 기준으로 정렬한다.
+```python
+sorted(word, key=word.find)
+```
+
+# 수학1, 2
