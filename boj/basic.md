@@ -13,8 +13,8 @@ for i in range(T):
     print(a+b)
 ```
 ### 출력  
-1. print()
-
+1. print() # 한 줄에 하나씩 출력
+2. print(something, end=' ') # 출력내용 뒤에 공백 출력, 이후 print하면 그 옆에 출력됨
 
 ## 문자열
 ```python
@@ -82,7 +82,8 @@ print([1,2,3] + [4,5]) # [1,2,3,4,5]
 ## sort
 key에 함수가 들어가면, list에 있는 각 원소에 함수를 씌우고 그 반환값을 기준으로 정렬한다.
 ```python
-sorted(word, key=word.find)
+[1,4,7,5].sort() # [1,4,5,7]
+sorted(word, key=word.find) # word의 처음에 등장한 알파벳부터 순서대로 정렬 (ex. banana > baaann)
 ```
 
 
@@ -106,6 +107,7 @@ list(zip([1, 2, 3], [4, 5, 6], [7, 8, 9]))
     ['***','* *','***'], [' '*3]*3, ['***','* *','***']
     )] 
 # ['***   ***','* *   * *','***   ***']
+for a,b in zip(str1, str2): print(a==b)  # 두 문자열 char별로 비교
 ```
 
 ## max

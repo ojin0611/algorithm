@@ -1,9 +1,13 @@
 # 개념
+재귀함수란 자기자신을 다시 호출하는 함수를 의미합니다
+함수가 끝나는 조건이 있어야 합니다.
+
 
 
 # 문제
 ## 별 찍기 - 10
 [문제](https://www.acmicpc.net/problem/2447)  
+가운데가 비어있는 프랙탈 만들기
 ```python
 N = int(input())
 
@@ -44,7 +48,11 @@ print('\n'.join(stars(N)))
 
 ## 하노이탑 동선
 [문제](https://www.acmicpc.net/problem/11729)  
-[풀이](https://pacific-ocean.tistory.com/119)
+1에 놓여있는 원판을 3으로 모두 옮기는 과정 출력하기
+
+[풀이](https://pacific-ocean.tistory.com/119)  
+print(a,c) : a에서 c로 옮긴다.
+n개를 모두 옮기기 위해서는 n-1개를 b로 옮긴 후, 맨 아래 원판을 c로 옮기고 다시 n-1개를 c로 옮긴다.
 ```python
 n = int(input())
 def hanoi(n, a, b, c):
