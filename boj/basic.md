@@ -88,15 +88,21 @@ max_idx = [idx for idx, c in enumerate(count) if c==max(count)] # 리스트 내 
 print([1,2,3] + [4,5]) # [1,2,3,4,5]
 ```
 
-## sort
-key에 함수가 들어가면, list에 있는 각 원소에 함수를 씌우고 그 반환값을 기준으로 정렬한다.
+## max
 ```python
-[1,4,7,5].sort() # [1,4,5,7]
-sorted(word, key=word.find) # word의 처음에 등장한 알파벳부터 순서대로 정렬 (ex. banana > baaann)
+if a>40: a=40
+max(a,40)
 ```
 
+## lambda
+lambda 인자리스트 : 표현식
 
 ## map
+map(function, iterable, ...)
+
+첫 번째 인자 function 는 함수의 이름 입니다. 두 번째 인자 iterable은 한번에 하나의 멤버를 반환할 수 있는 객체 입니다.(list, str, tuple)  
+map() 함수는 function을 iterable의 모든 요소에 대해 적용합니다. 그리고 function에 의해 변경된  iterator를 반환합니다.
+
 두 개의 정수를 한 줄에 입력받았을 때 a,b로 사용하기 위해선
 ```python
 list(map(int, '12345')) # [1,2,3,4,5]
@@ -106,6 +112,16 @@ a,b = map(int, input().split()) # 한 줄에 숫자 하나씩이면 a = int(inpu
 map은 리스트의 요소를 지정된 함수로 처리해주는 함수입니다.  
 map은 원본 리스트를 변경하지 않고 새 리스트를 생성합니다.  
 위의 map은 input으로 입력받은 숫자를 (for문을 이용하지 않고 한 번에) int로 바꿔주는 역할입니다.
+
+## filter
+filter(function, iterable)
+
+filter에 인자로 사용되는 function은 처리되는 각각의 요소에 대해 Boolean 값을 반환합니다. True를 반환하면 그 요소는 남게 되고, False 를 반환하면 그 요소는 제거 됩니다.
+```python
+foo = [2, 18, 9, 22, 17, 24, 8, 12, 27]
+list( filter(lambda x: x % 3 == 0, foo) ) # [18, 9, 24, 12, 27]
+```
+
 
 ## zip
 `zip(*iterable)`은 동일한 개수로 이루어진 자료형을 묶어주는 역할을 하는 함수입니다.
@@ -118,13 +134,6 @@ list(zip([1, 2, 3], [4, 5, 6], [7, 8, 9]))
 # ['***   ***','* *   * *','***   ***']
 for a,b in zip(str1, str2): print(a==b)  # 두 문자열 char별로 비교
 ```
-
-## max
-```python
-if a>40: a=40
-max(a,40)
-```
-
 
 ## EOF
 EOF = End Of File. 파일의 끝  

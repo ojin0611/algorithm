@@ -1,5 +1,29 @@
 # 개념
-## 정렬
+0. 내장 함수 - sort / sorted
+```python
+arr.sort() # return None. arr가 정렬됨
+
+
+arr = [(1, 2), (0, 1), (5, 1), (5, 2), (3, 0)] # 인자없이 그냥 sorted()만 쓰면, 리스트 아이템의 각 요소 순서대로 정렬을 한다. 
+sorted(arr) # [(0, 1), (1, 2), (3, 0), (5, 1), (5, 2)] 
+
+sorted(arr, key=function)
+# key에 함수가 들어가면, list에 있는 각 원소에 함수를 씌우고 그 반환값을 기준으로 정렬한다.
+
+sorted(word, key=word.find) 
+# word의 처음에 등장한 알파벳부터 순서대로 정렬한다. (ex. banana > baaann)
+
+sorted(arr, key = lambda x : x[0]) # [(0, 1), (1, 2), (3, 0), (5, 1), (5, 2)] 
+sorted(arr, key = lambda x : x[1]) # [(3, 0), (0, 1), (5, 1), (1, 2), (5, 2)] 
+
+# 아이템 첫 번째 인자를 기준으로 오름차순으로 먼저 정렬 
+# 그 안에서 다음 두 번째 인자를 기준으로 내림차순으로 정렬
+arr = [(1, 3), (0, 3), (1, 4), (1, 5), (0, 1), (2, 4)] 
+sorted(arr, key = lambda x : (x[0], -x[1])) # [(0, 3), (0, 1), (1, 5), (1, 4), (1, 3), (2, 4)]
+
+```
+
+
 1. 선택 정렬 (Selection Sort) - O(n^2)  
 가장 작은 것을 선택해서 제일 앞으로 보내는 정렬  
 한 번 스캔해서 가장 작은 값과 맨 앞의 값을 바꿔줌  
@@ -199,3 +223,26 @@ for i,c in enumerate(counter):
 
 
 # 문제
+## 최빈값
+```python
+from collection import Counter
+
+arr = [...]
+Counter(arr).most_common()
+```
+
+## 단어 정렬
+```python
+import sys
+N = int(input())
+
+arr = []
+for _ in range(N):
+    arr.append(sys.stdin.readline().rstrip())
+
+# 중복 단어 제거
+# 길이로 정렬 > len(x), 이후에는 알파벳 > x
+a = sorted(list(set(arr)), key=lambda x: (len(x), x))
+for x in a:
+    print(x)
+```
