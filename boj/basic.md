@@ -2,19 +2,28 @@
 ## 입출력
 ### 입력  
 1. input()
-2. sys.stdin  
-빠른 속도를 위해 input 대신 다른 함수를 이용한다.
+2. sys.stdin.readline()  
+3. sys.stdin : 여러 줄 입력받기  
+   ^Z를 입력받으면 종료해주기 때문에, 임의의 여러 줄을 입력받아야 하는 문제에 사용된다.
 ```python
 import sys
 
 T = int(input())
+
 for i in range(T):
     a,b = map(int, sys.stdin.readline().split())
     print(a+b)
+
+for line in sys.stdin:
+    print(line)
 ```
 ### 출력  
 1. print() # 한 줄에 하나씩 출력
 2. print(something, end=' ') # 출력내용 뒤에 공백 출력, 이후 print하면 그 옆에 출력됨
+3. sys.stdout.write()
+```python
+sys.stdout.write('\n'.join(map(str, arr)))
+```
 
 ## 문자열
 ```python
