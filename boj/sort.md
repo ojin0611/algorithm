@@ -38,7 +38,7 @@ def selection_sort(arr):
         arr[i], arr[min_idx] = arr[min_idx], arr[i]
 ```
 
-1. 거품 정렬 (Bubble Sort) - O(n^2)  
+2. 거품 정렬 (Bubble Sort) - O(n^2)  
 바로 뒤에 있는 값과 비교해 더 크면 자리를 바꾸는(뒤로 보내는) 정렬  
 결과적으로 한 루프마다 가장 큰 값이 맨 뒤로 이동
 그 다음 루프에서는 맨 뒤 빼고 돌리기  
@@ -51,7 +51,7 @@ def bubble_sort(arr):
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
 ```
 
-1. 삽입 정렬 (Insertion Sort) - O(n^2)  
+3. 삽입 정렬 (Insertion Sort) - O(n^2)  
 앞의 숫자들이 정렬이 돼있다는 가정하에, 바로 앞 숫자와 비교하여 자신이 더 작으면 자리를 바꾸는(앞으로 보내는) 정렬  
 한 루프를 돌면, 해당 값이 자기가 있어야하는 자리에 삽입됨  
 바깥 쪽 루프는 순방향, 안 쪽 루프는 역방향으로 진행  
@@ -64,7 +64,7 @@ def insertion_sort(arr):
                 arr[i - 1], arr[i] = arr[i], arr[i - 1]
 ```
 
-1. 병합 정렬 - O(nlogn)  
+4. 병합 정렬 - O(nlogn)  
 [동영상](https://i.stack.imgur.com/YlHqG.gif)  
 분할 정복 (Divide and Conquer) 기법과 재귀 알고리즘을 이용한 정렬
 기존 배열(arr)을 반으로 나눈 뒤에, 두 배열(low_arr, high_arr)에서 가장 작은 값을 뽑아내어 새로운 배열(merged_arr)을 만드는 방법  
@@ -126,7 +126,7 @@ def merge_sort(arr):
     return sort(0, len(arr))
 ```
 
-1. 퀵 소트 (Quick Sort) - O(nlogn)  
+5. 퀵 소트 (Quick Sort) - O(nlogn)  
 배열을 pivot 값 기준으로 더 작은 값과 큰 값으로 반복적으로 분할하여 정렬  
 일반적으로 가장 빠른 알고리즘  
 이미(혹은 거의) 정렬되어있는 경우 O(N^2)  
@@ -172,7 +172,7 @@ def quick_sort(arr):
     return sort(0, len(arr) - 1)
 ```
 
-1. 계수 정렬 (Counting Sort) - O(n)  
+6. 계수 정렬 (Counting Sort) - O(n)  
 입력된 값 아래에 몇개의 정수들이 존재하는지에 따라 X의 위치가 결정되는 알고리즘으로 비교 정렬이 아님  
 입력 요소의 범위가 작을 때 효율적인 정렬 방법  
   
@@ -214,6 +214,8 @@ for i,c in enumerate(counter):
 
 # 딕셔너리 사용도 가능
 ```
+
+## 추가로 공부해야할 것
 1. TimSort
 
 1. 힙 정렬 - O(nlogn)
