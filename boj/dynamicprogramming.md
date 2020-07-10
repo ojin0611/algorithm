@@ -201,3 +201,22 @@ for n in range(1,N+1):
 
 print(max(dp[N]))
 ```
+
+## 가장 긴 증가하는 부분수열 (Longest Increasing Subsequences)
+[문제](https://www.acmicpc.net/problem/11053)
+
+
+```python
+N = int(input())
+arr = list(map(int, input().split()))
+dp = [1 for _ in range(N)] # 자기 자신만 고려하면 길이 1
+
+for i in range(N): # 기준이 되는 값. arr[i]
+    for j in range(i): 
+        if arr[i] > arr[j] and dp[i] <= dp[j]:
+        # 지금 갖고있는 LIS의 길이보다 더 길거나 같다면 (같으면 자기 자신을 추가할 수 있으므로 가능)
+            dp[i] = dp[j] + 1 # 그 전의 길이 +1을 저장
+            # 이 때 dp[i]가 의미하는 건 i번째 숫자까지의 LIS
+
+print(max(dp))
+```
