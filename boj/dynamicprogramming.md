@@ -121,3 +121,83 @@ for i, arr in enumerate(triangle):
         before = next
 print(max(next))
 ```
+
+## 1로 만들기
+[문제](https://www.acmicpc.net/problem/1463)
+```
+n /= 3 if n % 3 == 0  
+n /= 2 if n % 2 == 0  
+n -= 1  
+3가지 연산을 통해 n을 1로 만들기 위한 최소 횟수를 구하라.
+```
+  
+bottom-up 방식으로 차곡차곡 쌓아서, 작은 숫자에서는 이미 최소 횟수를 구했다는 가정하에 더 큰 숫자에서 최소 횟수를 구하는 방법을 이용한다.
+
+```python
+n=int(input())
+
+def one(n):
+    if n<=4 or dp[n]: return dp[n]
+    
+    temp = [one(n-1)]
+    if n%3 == 0: temp.append(one(n//3))
+    if n%2 == 0: temp.append(one(n//2))
+    return min(temp)+1
+
+dp = [0,0,1,1,2] + [0 for _ in range(n)]
+for i in range(5,n+1):
+    dp[i] = one(i)
+
+print(dp[n])
+```
+
+## 계단수
+[문제](https://www.acmicpc.net/problem/10844)  
+길이가 N-1인 계단수의 1의 자리 숫자를 이용하는 방법
+```python
+N = int(input()) # 숫자의 길이 
+
+dp = [[0,1,1,1,1,1,1,1,1,1]] + [None for _ in range(N)]
+for i in range(1, N+1):
+    dp[i] = [dp[i-1][1] % 1000000000, 
+    dp[i-1][0]+dp[i-1][2] % 1000000000,
+    dp[i-1][1]+dp[i-1][3] % 1000000000, 
+    dp[i-1][2]+dp[i-1][4] % 1000000000, 
+    dp[i-1][3]+dp[i-1][5] % 1000000000, 
+    dp[i-1][4]+dp[i-1][6] % 1000000000,
+    dp[i-1][5]+dp[i-1][7] % 1000000000, 
+    dp[i-1][6]+dp[i-1][8] % 1000000000, 
+    dp[i-1][7]+dp[i-1][9] % 1000000000,
+    dp[i-1][8] % 1000000000] 
+    
+print(sum(dp[N-1]) % 1000000000)
+```
+
+## 포도주 마시기
+[문제]()
+
+1~n번 잔에 포도주가 1~1000만큼 들어있을 때, 연속으로 3잔을 마시지 않고 포도주를 가장 많이 마시는 방법을 구하는 문제.  
+```python
+import sys
+
+N=int(input())
+stairs = [0]
+for _ in range(N):
+    stairs.append(int(sys.stdin.readline()))
+
+dp = [None for _ in range(N+1)]
+# dp[n] = ['n번째 마심 + n-1번째 마심', 'n번째 마심 + n-1번째 skip', 'n번째 skip' ]
+
+for n in range(1,N+1):
+    if n==1:
+        dp[1] = [stairs[1], stairs[1], 0]
+    elif n==2:
+        dp[2] = [stairs[2]+dp[1][1], stairs[2] + dp[1][2], dp[1][0]]
+    else:
+        both = stairs[n] + max(dp[n-1][1], dp[n-1][2])
+        now  = stairs[n] + max(dp[n-1][2], max(dp[n-2]))
+        skip = max(dp[n-1])
+        dp[n] = [both, now, skip]
+
+print(max(dp[N]))
+```
