@@ -40,6 +40,67 @@ def fibonacci_bottom_up(n):
     return next
 ```
 
+## 가장 긴 증가하는 부분수열 (Longest Increasing Subsequences)
+[문제](https://www.acmicpc.net/problem/11053)  
+수열 A가 주어졌을 때, 가장 긴 증가하는 부분 수열을 LIS라고 한다.
+
+예를 들어, 수열 A = {10, 20, 10, 30, 20, 50} 인 경우에 가장 긴 증가하는 부분 수열은 A = {10, 20, 10, 30, 20, 50} 이고, 길이는 4이다.
+
+이를 구하기 위해서는, 첫 번째 값부터 자기 자신까지의 LIS 길이를 저장하는 배열 DP를 만들어준다. i-1번째 값까지는 모두 LIS의 길이를 알고있으므로 이후에 i번째 값이 추가될때마다 이를 참고하여 DP[i] 값을 구해준다.
+
+```python
+N = int(input())
+arr = list(map(int, input().split()))
+dp = [1 for _ in range(N)] # 자기 자신만 고려하면 길이 1
+
+for i in range(N): # 기준이 되는 값. arr[i]
+    for j in range(i): 
+        if arr[i] > arr[j] and dp[i] <= dp[j]:
+        # 지금 갖고있는 LIS의 길이보다 더 길거나 같다면 (같으면 자기 자신을 추가할 수 있으므로 가능)
+            dp[i] = dp[j] + 1 # 그 전의 길이 +1을 저장
+            # 이 때 dp[i]가 의미하는 건 i번째 숫자까지의 LIS
+
+print(max(dp))
+```
+
+## 최장 공통 부븐 수열 - Longest Common Subsequence
+[문제](https://www.acmicpc.net/problem/9251) /
+[풀이](http://melonicedlatte.com/algorithm/2018/03/15/181550.html)  
+
+테이블의 값은 해당 값까지의 두 문자열의 LCS의 길이다.  
+
+### LCS의 길이를 구하는 방법
+윗줄부터 채우면, 윗줄은 이미 LCS라고 볼 수 있다.  
+같은 문자를 만나면 좌상향대각+1 (두 문자열이 만나기 전의 LCS 길이를 찾아야하기 때문)   
+다른 문자를 만나면 max(좌, 상향) 
+
+### Example
+|-|-|A|C|A|Y|K|P|
+|-|-|-|-|-|-|-|-|
+-|0|0|0|0|0|0|0|
+C|**0**|0|**1**|0|0|0|0|
+A|0|**1**|1|**2**|2|2|2
+P|0|1|1|2|2|2|3
+C|0|1|2|2|2|**2**|3
+A|0|1|2|3|**3**|**3**|3
+K|0|1|2|3|3|4|4
+ex) A가 ACAYKP의 A와 만날때마다 좌상향대각+1을 한 것을 볼 수 있음  
+ex) A,K는 다르므로 2,3중 큰 값인 3을선택
+
+### LCS를 구하는 방법
+가장 긴 수열을 찾는 방법은 역추적이다. 마지막 줄에서 max값 M을 찾고, M-1이 M이 된 지점(좌상향)을 계속 역추적하는 방법을 이용하면 최장수열을 찾을 수 있다.
+|-|-|A|C|A|Y|K|P|
+|-|-|-|-|-|-|-|-|
+-|0|0|0|0|0|0|0|
+C|<span style="color:red">0</span>|0|1|0|0|0|0|
+A|0|**<span style="color:red">1</span>**|1|2|2|2|2
+P|0|<span style="color:red">1</span>|1|2|2|2|3
+C|0|1|**<span style="color:red">2</span>**|2|2|2|3
+A|0|1|2|**<span style="color:red">3</span>**|<span style="color:red">3</span>|3|3
+K|0|1|2|3|3|**<span style="color:red">4</span>**|4
+
+굵은 빨간색 값들을 보아 ACAK가 LCS임을 알 수 있다.
+
 
 # 문제
 ## 단순 재귀로 피보나치 함수를 구하면 함수 호출 개수가 기하급수적으로 늘어납니다.
@@ -58,7 +119,7 @@ for i in q:
     print(dp[i][0], dp[i][1])
 ```
 
-## 점화식의 값을 특정 상수로 나눈 나머지를 구하는 문제
+## 점화식의 값을 특정 상수로 나눈 나머지
 [문제](https://www.acmicpc.net/problem/1904)
 ```python
 # 큰 값끼리 더하면 시간이 오래걸리므로, 나머지끼리 더해준다.
@@ -78,6 +139,9 @@ print(tile(int(input())))
 ```
 
 ## 옆집과 다른 색
+[문제](https://www.acmicpc.net/problem/1149)  
+각 집마다 r,g,b로 칠했을 때의 비용을 저장하고 다음 집에서는 이전 집에서 칠하지 않은 색 중 더 낮은 값을 선택한다.
+
 ```python
 import sys
 N = int(input())
@@ -102,6 +166,7 @@ print(min(dp[N-1]))
 
 ## 정수 삼각형
 [문제](https://www.acmicpc.net/problem/1932)  
+좌상향 우상향 대각 숫자 중에 더 큰 값을 선택해야한다. 편의를 위해 입력되는 숫자 배열 양 옆에 0을 추가해준다. 
 ```python
 import sys
 N = int(input())
@@ -202,9 +267,8 @@ for n in range(1,N+1):
 print(max(dp[N]))
 ```
 
-## 가장 긴 증가하는 부분수열 (Longest Increasing Subsequences)
-[문제](https://www.acmicpc.net/problem/11053)
-
+## 가장 긴 바이토닉 부분수열
+[문제](https://www.acmicpc.net/problem/11054)
 
 ```python
 N = int(input())
@@ -217,6 +281,12 @@ for i in range(N): # 기준이 되는 값. arr[i]
         # 지금 갖고있는 LIS의 길이보다 더 길거나 같다면 (같으면 자기 자신을 추가할 수 있으므로 가능)
             dp[i] = dp[j] + 1 # 그 전의 길이 +1을 저장
             # 이 때 dp[i]가 의미하는 건 i번째 숫자까지의 LIS
+
+# 위에서 구한 각 값까지의 LIS 길이를 시작으로, 각 값부터 감소하는 수열을 찾는다.
+for i in range(N):
+    for j in range(i):
+        if arr[i] < arr[j] and dp[i] <= dp[j]:
+            dp[i] = dp[j] + 1
 
 print(max(dp))
 ```
