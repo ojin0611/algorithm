@@ -65,7 +65,7 @@ def insertion_sort(arr):
 ```
 
 4. 병합 정렬 - O(nlogn)  
-[동영상](https://i.stack.imgur.com/YlHqG.gif)  
+[동영상](./병합정렬.gif)  
 분할 정복 (Divide and Conquer) 기법과 재귀 알고리즘을 이용한 정렬
 기존 배열(arr)을 반으로 나눈 뒤에, 두 배열(low_arr, high_arr)에서 가장 작은 값을 뽑아내어 새로운 배열(merged_arr)을 만드는 방법  
 ```python
