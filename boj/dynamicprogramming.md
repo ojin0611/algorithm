@@ -63,7 +63,7 @@ for i in range(N): # 기준이 되는 값. arr[i]
 print(max(dp))
 ```
 
-## 최장 공통 부븐 수열 - Longest Common Subsequence
+## 최장 공통 부분 수열 - Longest Common Subsequence
 [문제](https://www.acmicpc.net/problem/9251) /
 [풀이](http://melonicedlatte.com/algorithm/2018/03/15/181550.html)  
 
@@ -84,6 +84,8 @@ P|0|1|1|2|2|2|3
 C|0|1|2|2|2|**2**|3
 A|0|1|2|3|**3**|**3**|3
 K|0|1|2|3|3|4|4
+
+----
 ex) A가 ACAYKP의 A와 만날때마다 좌상향대각+1을 한 것을 볼 수 있음  
 ex) A,K는 다르므로 2,3중 큰 값인 3을선택
 
@@ -101,10 +103,31 @@ K|0|1|2|3|3|**<span style="color:red">4</span>**|4
 
 굵은 빨간색 값들을 보아 ACAK가 LCS임을 알 수 있다.
 
+```python
+a = [x for x in input()]
+b = [x for x in input()]
+alen = len(a)
+blen = len(b)
+dp = [[0] * (alen + 1) for _ in range(blen + 1)]
+# dp[i][j] : b의 i번째 문자와 a의 j번째 문자 사이의 LCS길이
+
+# 가로로 쓴게 a, 세로로 쓴게 b 
+# 테이블상에서는 i+1행 j+1열에 입력된다.
+for i in range(1, blen + 1):
+    for j in range(1, alen + 1):
+    # 1 : 왼쪽값과 위쪽값, a[j-1] != b[i-1]
+    # 2 : 왼쪽 대각선 값 + 1, a[j-1] == b[i-1]
+        dp[i][j] = max(dp[i][j - 1], dp[i - 1][j], 
+            dp[i - 1][j - 1] + (a[j - 1] == b[i - 1]))
+print(dp[blen][alen])
+```
+
+
 
 # 문제
-## 단순 재귀로 피보나치 함수를 구하면 함수 호출 개수가 기하급수적으로 늘어납니다.
-[문제](https://www.acmicpc.net/problem/1003)
+## 피보나치 문제
+[문제](https://www.acmicpc.net/problem/1003)  
+단순 재귀로 피보나치 함수를 구하면 함수 호출 개수가 기하급수적으로 늘어납니다.
 
 ```python
 import sys
@@ -119,8 +142,9 @@ for i in q:
     print(dp[i][0], dp[i][1])
 ```
 
-## 점화식의 값을 특정 상수로 나눈 나머지
-[문제](https://www.acmicpc.net/problem/1904)
+## 01타일
+[문제](https://www.acmicpc.net/problem/1904)  
+점화식의 값을 특정 상수로 나눈 나머지를 이용한 문제
 ```python
 # 큰 값끼리 더하면 시간이 오래걸리므로, 나머지끼리 더해준다.
 def tile(n):
@@ -138,7 +162,7 @@ def tile(n):
 print(tile(int(input())))
 ```
 
-## 옆집과 다른 색
+## RGB거리 - 옆집과 다른 색
 [문제](https://www.acmicpc.net/problem/1149)  
 각 집마다 r,g,b로 칠했을 때의 비용을 저장하고 다음 집에서는 이전 집에서 칠하지 않은 색 중 더 낮은 값을 선택한다.
 
@@ -241,7 +265,7 @@ print(sum(dp[N-1]) % 1000000000)
 ## 포도주 마시기
 [문제]()
 
-1~n번 잔에 포도주가 1~1000만큼 들어있을 때, 연속으로 3잔을 마시지 않고 포도주를 가장 많이 마시는 방법을 구하는 문제.  
+n개의 잔에 포도주가 1~1000만큼 들어있을 때, 연속으로 3잔을 마시지 않고 포도주를 가장 많이 마시는 방법을 구하는 문제.  
 ```python
 import sys
 
@@ -290,3 +314,77 @@ for i in range(N):
 
 print(max(dp))
 ```
+
+## 연속합
+[문제](https://www.acmicpc.net/problem/1912)
+
+
+```python
+N = int(input())
+arr = list(map(int, input().split()))
+
+# i번째 숫자가 포함된 최대 연속합
+dp = [0 for _ in range(N+1)]
+for i in range(N):
+    dp[i+1] = max(dp[i] + arr[i], arr[i])
+
+print(max(dp[1:]))
+
+# 메모리 관리 : dp에 다 저장하지 않고 부분합은 s에, max값은 m에 저장
+l = [*map(int,input().split())]
+if max(l) <= 0: print(max(l))
+else:
+	s = 0
+	m = 0
+
+	for a in l:
+		s += a
+		if s < 0:
+			s = 0
+		if m < s:
+			m = s
+
+	print(m)
+```
+
+## 평범한 배낭 0-1 knapsack problem
+[문제](https://www.acmicpc.net/problem/12865) / 
+[해설](https://claude-u.tistory.com/208)  
+
+### 아이디어
+평범한(?) dp를 이용한다.
+|-|0|1|2|3|4|5|6|7|
+|-|-|-|-|-|-|-|-|-|
+0|0|0|0|0|0|0|0|0|
+(6,13)|0|0|0|0|0|0|13|13|
+(4,8)|0|0|0|0|**8**|8|13|13|
+(3,**6**)|0|0|0|6|8|8|13|**14**|
+(5,12)|0|0|0|6|8|12|13|14|
+dp의 행은 물건의 (무게,가치), 열은 가방의 가용무게  
+dp[i][j] : i번째 물건까지 고려했을 때, 가방에 넣을 수 있는 무게가 j일 때 가방이 갖는 최대 value  
+각 행의 왼쪽부터 값을 채워넣는다. 즉, i행의 물건을 가용무게가 j인 가방에 넣는다고 생각한다. 
+
+1. 해당 물건이 가용무게보다 **무거울 때**  
+물건을 안넣었을 때의 최대 value를 가져온다.  
+2. 해당 물건이 가용무게보다 **가벼울 때**  
+해당 물건을 넣고, 해당 물건의 무게만큼 뺀 무게에서의 최대 value와 해당 물건의 value를 더해준다.
+```python
+import sys
+n, k = map(int, input().split())
+arr = [(0,0)]
+for _ in range(n):
+    w, v = map(int, sys.stdin.readline().split())
+    arr.append((w,v))
+
+
+dp = [[0 for _ in range(k+1)] for _ in range(n+1)]
+for i in range(1,n+1): # i번째 물건
+    for j in range(1, k+1):
+        if arr[i][0] > j:
+            dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+        else:
+            dp[i][j] = max(dp[i-1][j] , arr[i][1] + dp[i-1][j-arr[i][0]])
+
+print(max(dp[-1]))
+```
+dp[i-1], dp[i]만 있으면 되므로 이를 이용해 메모리를 절약할 수 있다.

@@ -96,6 +96,9 @@ max(a,40)
 
 ## lambda
 lambda 인자리스트 : 표현식
+```python
+(lambda x,y: x+y)(10,20) # 30
+```
 
 ## map
 map(function, iterable, ...)
