@@ -32,13 +32,13 @@ print('\\n') # `\`로 끝나고 줄바꿈
 print('\'')  # ' 
 print('\\\ abc')  # `\\ abc`
 
-'MISSISSIPI'.count('I') # 3 (3개)
-'MISSISSIPI'.find('S')  # 2 (S는 3번째에 처음으로 등장 / 없으면 -1)
-set('MISSISSIPI')       # ('M','I','S','P')
-'ABCDE'[::-1]           # 'EDCBA'
-'23'.zfill(4)           # '0023'
-mystring.split()        # 공백, 탭, 엔터 모두 분리해서 리스트 반환
-
+'MISSISSIPI'.count('I')   # 3 (3개)
+'MISSISSIPI'.find('S')    # 2 (S는 3번째에 처음으로 등장 / 없으면 -1)
+set('MISSISSIPI')         # ('M','I','S','P')
+'ABCCE'[::-1]             # 'ECCBA'
+'ABCCE'.replace('CC','*') # 'AB*E'
+'23'.zfill(4)             # '0023'
+mystring.split()          # 공백, 탭, 엔터 모두 분리해서 리스트 반환
 ```
 
 ## 문자열 포맷팅
@@ -86,6 +86,12 @@ print("%.2f" % n) # 소수점 2번째 자리까지 표시
 max_idx = [idx for idx, c in enumerate(count) if c==max(count)] # 리스트 내 최대값의 인덱스 모두 찾기
 
 print([1,2,3] + [4,5]) # [1,2,3,4,5]
+```
+
+## 딕셔너리
+```python
+for key, val in mydict.items():
+    print('key :', key, ', value :', val)
 ```
 
 ## max
@@ -182,16 +188,3 @@ print(len(alpha)) # 전체 문자 개수
 place(alpha.count('*')) # 치환된 문자 개수
 ```
 
-## 소수 모두 찾기
-```python
-# 1 ~ 10000 중에서 소수를 모두 찾고싶으면
-arr = [False, False] + [True] * 9999 # 0,1은 False
-for i in range(2, 101):
-    if arr[i]:
-        for j in range(i * 2, len(arr), i):
-            arr[j] = False
-```
-
-## 거리 비교
-d^2 = r1^2 + r1^2 로 비교해주는 것이 편리하다.  
-d = (r1^2 + r1^2)**0.5 로 계산하면 소수점때문에 비교가 힘들기때문이다
