@@ -9,6 +9,63 @@
 삽입이 일어나는 쪽을 rear, 삭제가 일어나는 쪽을 front라고 부른다.
 FIFO(First-in, First-Out)
 
+
+
+## python list와 queue & deck
+
+- `list.pop(0), list.index, list.insert, list.count, x in list, list[:-1]` 등은 다 O(N)입니다. 이외에도 O(N)이 걸리는 list 연산이 굉장히 많습니다. https://wiki.python.org/moin/TimeComplexity
+- 위의 이유로, **list를 큐 또는 덱으로 사용하면 절대, 절대, 절대, 절대, 절대 안 됩니다!! 반드시 `collections.deque`를 써야 합니다.**
+
+
+
+```python
+from collections import deque
+dq = deque('love')
+print(dq) # deque(['l','o','v','e'])
+print(dq[2]) # 'v'
+```
+### stack
+```python
+# push
+dq.append('U') # deque(['l','o','v','e','U']) 
+
+# pop
+dq.pop() # deque(['l','o','v','e'])
+```
+
+### queue
+```python
+# left push
+dq.appendleft('I') # deque(['I','l','o','v','e'])
+
+# right pop
+dq.pop() # deque(['I','l','o','v'])
+
+# left pop
+dq.popleft() # deque(['l','o','v'])
+
+```
+
+### 그 외 기타 기능
+```python
+# extend
+dq.extend('e') # deque(['l','o','v','e'])
+
+# remove
+dq.remove('v') # deque(['l','o','e'])
+
+# change value
+dq[1] = 't' # deque(['l','t','e'])
+
+# reverse
+dq.reverse() # deque(['e','t','l'])
+```
+
+
+
+
+
+
 # 문제
 ## 스택 수열
 [문제](https://www.acmicpc.net/problem/1874)  
