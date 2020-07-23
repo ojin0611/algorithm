@@ -4,14 +4,23 @@
 
 스택은 자료를 넣는 (push) 입구와 자료를 뽑는 (pop) 입구가 같아 제일 나중에 들어간 자료가 제일 먼저 나오는 (LIFO, Last in First out) 특성을 가지고 있다.
 
+
+
 ## 큐 Queue
+
 큐는 스택과 마찬가지로 일종의 리스트로, 데이터 삽입은 한쪽 끝에서, 삭제는 반대쪽 끝에서만 일어난다.  
 삽입이 일어나는 쪽을 rear, 삭제가 일어나는 쪽을 front라고 부른다.
 FIFO(First-in, First-Out)
 
 
 
-## python list와 queue & deck
+## 덱 Deque
+
+Double-ended Queue의 약자로, 양쪽 끝에서 삽입과 삭제가 모두 가능한 자료구조다. 큐와 스택을 합친 형태다.
+
+
+
+## python list와 queue & deque
 
 - `list.pop(0), list.index, list.insert, list.count, x in list, list[:-1]` 등은 다 O(N)입니다. 이외에도 O(N)이 걸리는 list 연산이 굉장히 많습니다. https://wiki.python.org/moin/TimeComplexity
 - 위의 이유로, **list를 큐 또는 덱으로 사용하면 절대, 절대, 절대, 절대, 절대 안 됩니다!! 반드시 `collections.deque`를 써야 합니다.**
