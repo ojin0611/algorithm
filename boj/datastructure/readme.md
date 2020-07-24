@@ -101,3 +101,74 @@ def numeric():
 
 print(numeric())
 ```
+
+
+
+## 회전하는 큐
+
+[문제](https://www.acmicpc.net/problem/1021)
+
+왼쪽 또는 오른쪽으로 미는 과정을 pop, append가 아니라 list slicing을 이용하여 표현할 수 있다.
+
+좌측과 우측 어느방향으로 밀더라도 이동이 끝난 후의 모습은 같다는 점을 주목해야한다. 
+
+```python
+n, m = map(int, input().split())
+dq = [i for i in range(1, n+1)]
+
+ans = 0
+
+for find in map(int, input().split()):
+    ix = dq.index(find)
+    ans += min(len(dq[ix:]), len(dq[:ix])) # 왼쪽으로 이동 또는 오른쪽으로 이동중에 더 짧은 횟수
+    dq = dq[ix+1:] + dq[:ix]
+
+print(ans)
+```
+
+
+
+## AC
+
+[문제](https://www.acmicpc.net/problem/5430)
+
+새로 만들어진 언어 AC는 두 가지 함수를 갖고 있다.
+
+R : 배열 reverse
+
+D : 첫 번째 숫자를 버리는 함수
+
+
+
+### 핵심 IDEA
+
+arr.pop(0)은 O(n)이다. 때문에 pop할 때마다 하나씩 지우는 것이 아니라 한번에 지울수 있는 방법을 생각해준다!
+
+reverse도 O(n)이기때문에 실제로 행하지 않고 reverse된 상태만 기억해준다!!!
+
+```python
+from sys import stdin, stdout
+def AC(com,n, li):
+    com.replace('RR', '')
+    l, r, d = 0, 0, True
+    for c in com:
+        if c == 'R': d = not d
+        elif c == 'D':
+            if d: l += 1
+            else: r += 1
+    if l+r <= n:
+        res = li[l:n - r]
+        if d: return '[' + ','.join(res) + ']\n'
+        else: return '[' + ','.join(res[::-1]) + ']\n'
+    else:
+        return 'error\n'
+
+T = int(stdin.readline())
+for _ in range(T):
+    com = stdin.readline()
+    n = int(stdin.readline())
+    li = stdin.readline().rstrip()[1:-1].split(',')
+    if n == 0 : []
+    stdout.write(AC(com, n, li))
+```
+
