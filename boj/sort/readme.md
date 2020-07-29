@@ -28,6 +28,9 @@ sorted(arr, key = lambda x : (x[0], -x[1])) # [(0, 3), (0, 1), (1, 5), (1, 4), (
 가장 작은 것을 선택해서 제일 앞으로 보내는 정렬  
 한 번 스캔해서 가장 작은 값과 맨 앞의 값을 바꿔줌  
 그 다음 루프에서는 맨 앞 빼고 돌리기
+
+i와 j를 비교하는 정렬
+
 ```python
 def selection_sort(arr):
     for i in range(len(arr) - 1):
@@ -43,6 +46,9 @@ def selection_sort(arr):
 결과적으로 한 루프마다 가장 큰 값이 맨 뒤로 이동
 그 다음 루프에서는 맨 뒤 빼고 돌리기  
 일반적으로 가장 느린 정렬 방법
+
+j와 j를 비교하는 정렬
+
 ```python
 def bubble_sort(arr):
     for i in range(len(arr) - 1, 0, -1):

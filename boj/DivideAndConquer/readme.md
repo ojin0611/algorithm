@@ -110,5 +110,27 @@ print(blue)
 
 ```python
 import sys
+n = int(sys.stdin.readline())
+image = []
+for i in range(n):
+    image.append(list(map(int, sys.stdin.readline().rstrip())))
+    
+# 바깥 루프는 y, 안쪽 루프는 x. 혼동하지 않기!!
+def quadtree(x,y,n):
+    check = image[y][x]
+    if n==1: return check
+    for j in range(y,y+n):
+        for i in range(x,x+n):
+            if check != image[j][i]:
+                left_up = quadtree(x,y,n//2)
+                right_up = quadtree(x+n//2,y,n//2)
+                left_down = quadtree(x,y+n//2,n//2)
+                right_down = quadtree(x+n//2,y+n//2,n//2)
+                return '({}{}{}{})'.format(left_up, right_up, left_down, right_down)
+    else:
+        return check
+
+
+print(quadtree(0,0,n))
 ```
 
