@@ -134,3 +134,50 @@ def quadtree(x,y,n):
 print(quadtree(0,0,n))
 ```
 
+
+
+## 곱셈
+
+[문제](https://www.acmicpc.net/problem/1629)
+
+a 의 b제곱을 c로 나눈 나머지를 구하는 문제다.
+
+이것이 왜 분할정복인가..하면 b제곱이 너무 오래걸리기때문에 b를 빠르게 감소시키는 방법을 생각해야한다.
+
+우선 큰 수의 계산은 복잡하므로 나머지를 구할 수 있을 때 계속 나눠준다. (% c)
+
+b가 2의 배수면 
+
+> a ** b % c == (a ** (b//2) % c) ** 2 % c
+
+2의 배수가 아니면 
+
+> a ** b % c ==  (a ** (b-1) % c) * a % c
+
+
+
+임을 이용해준다.
+
+```python
+a,b,c = map(int, input().split())
+
+def cal(a,b,c):
+    if b==1:
+        return a%c
+    elif b%2==0:
+        return cal(a, b//2, c) ** 2 % c
+    else:
+        return cal(a,b-1,c) * a % c 
+
+print(cal(a,b,c))
+```
+
+
+
+이것보다 더 효율적(?)인 방법으로는 python 내장함수 `pow`를 쓰는 것이 있는데 pow에 대한 설명은 아래와 같다.
+
+```python
+pow(a,b) // a**b
+pow(a,b,c) // a**b%c
+```
+
