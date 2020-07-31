@@ -181,3 +181,24 @@ pow(a,b) // a**b
 pow(a,b,c) // a**b%c
 ```
 
+
+
+## 이항계수 3
+
+[문제](https://www.acmicpc.net/problem/11401)
+
+nCk를 1000000007으로 나눈 나머지를 구하는 프로그램.
+
+문제를 효율적으로 풀기 위해 [페르마의 소정리](https://m.blog.naver.com/PostView.nhn?blogId=a4gkyum&logNo=220768006509&proxyReferer=https:%2F%2Fwww.google.com%2F)를 먼저 알아보자.
+
+
+
+조건
+
+1. a는 정수, p는 소수
+2. a는 p의 약수가 아니다. (사실상 a ≠ p)
+
+결과
+
+- a^p ≡ a (mod p)
+- if a ≠ 0: a^(p-1) ≡ 1 (mod p) 
