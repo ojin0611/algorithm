@@ -202,3 +202,57 @@ nCk를 1000000007으로 나눈 나머지를 구하는 프로그램.
 
 - a^p ≡ a (mod p)
 - if a ≠ 0: a^(p-1) ≡ 1 (mod p) 
+
+
+
+이를 다음과 같이 이용할 수 있다.
+
+[출처](https://onsil-thegreenhouse.github.io/programming/problem/2018/04/02/problem_combination/)
+
+![페르마의 소정리](./fermats_little_theorem.png)
+
+```
+a^p = a (mod p)
+a^(p-1) = 1 (mod p)
+
+a^(p-1) = 1(mod p) 이므로, mod p를 구할 때 얼마든지 곱해줄 수 있다.
+
+---------
+
+{A * B^(-1)} %p
+= {A * B^(-1) * B^(p-1)} %p 
+= {A * B^(p-2)} %p 
+= {A%p * B^(p-2)} %p 
+```
+
+
+
+
+
+## 행렬의 곱셈
+
+[문제](https://www.acmicpc.net/problem/2740)
+
+N\*M 행렬과 M\*K 행렬의 곱셈
+
+
+
+```python
+import sys
+n,m = map(int, sys.stdin.readline().split())
+A = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
+    
+
+m,k = map(int, sys.stdin.readline().split())
+B = [list(map(int, sys.stdin.readline().split())) for _ in range(m)]
+
+
+result = [[0 for _ in range(k)] for _ in range(n)] 
+for a in range(n):
+    for b in range(k):
+        for c in range(m):
+            result[a][b] += A[a][c] * B[c][b]
+        sys.stdout.write("{} ".format(result[a][b]))
+    sys.stdout.write("\n")
+```
+
