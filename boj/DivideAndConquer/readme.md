@@ -256,3 +256,61 @@ for a in range(n):
     sys.stdout.write("\n")
 ```
 
+
+
+## 행렬의 제곱
+
+[문제](https://www.acmicpc.net/problem/10830)
+
+곱셈의 응용. n제곱은 분할정복
+
+아래 코드가 왜 틀렸을까..?
+
+```python
+import sys
+n, b = map(int, sys.stdin.readline().split())
+
+A = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
+
+matrix = A
+
+def cal1(matrix): # 한번 곱하기
+    result = [[0 for _ in range(n)] for _ in range(n)]
+    for r in range(n): # 행
+        for m in range(n): # 열
+            for i in range(n):
+                result[r][m] += matrix[r][i] * A[i][m] % 1000
+            result[r][m] %= 1000
+    return result
+
+
+def cal2(matrix): # 제곱하기
+    result = [[0 for _ in range(n)] for _ in range(n)]
+    for r in range(n): # 행
+        for m in range(n): # 열
+            for i in range(n):
+                result[r][m] += matrix[r][i] * matrix[i][m] % 1000
+            result[r][m] %= 1000
+    return result
+
+
+def cal(matrix): # 전체계산
+    global b
+    if b==1:
+        for i in range(n):
+            for j in range(n):
+                matrix[i][j] %= 1000 # 1000보다 작거나 같은 자연수
+        return matrix
+    elif b%2==0:
+        b //= 2
+        return cal2(cal(matrix))
+    else:
+        b -= 1
+        return cal1(cal(matrix))
+        
+ans = cal(matrix)
+
+for a in ans:
+    print(*a)
+```
+

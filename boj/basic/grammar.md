@@ -117,7 +117,7 @@ map() 함수는 function을 iterable의 모든 요소에 대해 적용합니다.
 list(map(int, '12345')) # [1,2,3,4,5]
 
 a,b = map(int, input().split()) # 한 줄에 숫자 하나씩이면 a = int(input())
-```  
+```
 map은 리스트의 요소를 지정된 함수로 처리해주는 함수입니다.  
 map은 원본 리스트를 변경하지 않고 새 리스트를 생성합니다.  
 위의 map은 input으로 입력받은 숫자를 (for문을 이용하지 않고 한 번에) int로 바꿔주는 역할입니다.
@@ -160,8 +160,93 @@ for line in sys.stdin:
     print(a + b)
 ```
 
+## 4 Usage of Asterisk 
+
+[참고링크](https://mingrammer.com/understanding-the-asterisk-of-python/)
+
+[더 쉽게 설명한 링크](https://dailyheumsi.tistory.com/41)
+
+1. 곱셈 및 거듭제곱
+
+   ```python
+   a = 3 * 6
+   b = 2 ** 4
+   ```
+
+   
+
+2. 리스트형 컨테이너타입의 데이터 반복확장
+
+   ```python
+   zeroList = [0] * 100
+   zeroTuple = (0,) * 50
+   ```
+
+3. 가변인자 (Variadic Parameters)
+
+   ```python
+   # positional arguments
+   def print_people01(first,second,third):
+       print(first,second,third)
+   
+   def print_people01(*args):
+       print(args)
+   
+   # keyword arguments
+   def print_people02(first=None, second=None, third=None):
+       print(first, second, third)
+       
+   def print_people02(**kwargs):
+       print(kwargs)
+       
+   # args의 type은 tuple 
+   # 즉, 1,2,3,4를 (1,2,3,4)로 packing해주는 역할
+   def a(*args): 
+       print(type(args)) 
+       print(args)
+       
+   a(1,2,3,4) 
+       
+   # output: 
+   # <class 'tuple'> 
+   # (1, 2, 3, 4)
+   
+   ```
+
+   
+
+4. 컨데이너 타입의 데이터 Unpacking
+
+   ```python
+   a = ((1,2), (3,4)) 
+   b = [[1,2,3,4]] 
+   print(*a) 
+   print(*b) 
+   
+   # output: 
+   # (1, 2) (3, 4) 
+   # [1, 2, 3, 4]
+   
+   ```
+
+   zip() 함수과 함께 `엄청` 써먹는다
+
+   ```python
+   def vector_addition(*vector_variables): 
+       # return [sum(i) for i in zip(vector_variables)] error
+   	return [sum(i) for i in zip(*vector_variables)] 
+   vector_addition([1, 3], [2, 4], [6, 7])
+   
+   # output:
+   # [9, 14]
+   ```
+
+   
+
+
 
 # 문제
+
 ## 윤년이면 1, 아니면 0
 ```python
 y=int(input())
