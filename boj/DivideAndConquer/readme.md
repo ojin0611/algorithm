@@ -264,7 +264,7 @@ for a in range(n):
 
 곱셈의 응용. n제곱은 분할정복
 
-아래 코드가 왜 틀렸을까..?
+
 
 ```python
 import sys
@@ -314,3 +314,29 @@ for a in ans:
     print(*a)
 ```
 
+
+
+## 행렬 곱셈을 이용한 피보나치 수
+
+[문제](https://www.acmicpc.net/problem/2749)
+
+[피보나치를 구하는 5가지 방법]([https://shoark7.github.io/programming/algorithm/%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%EC%9D%84-%ED%95%B4%EA%B2%B0%ED%95%98%EB%8A%94-5%EA%B0%80%EC%A7%80-%EB%B0%A9%EB%B2%95.html](https://shoark7.github.io/programming/algorithm/피보나치-알고리즘을-해결하는-5가지-방법.html))
+
+이번 문제에서는 행렬 제곱을 이용해 피보나치 수를 구해본다.
+
+![행렬곱셈을 이용한 피보나치 수](./fibonacci_with_matrix_mul.PNG)
+
+
+
+중간과정은 아래의 식과 같다.
+
+```
+(F_(n+2) F_(n+1)) = (1 1) (F_(n+1) F_n    )
+(F_(n+1) F_n    )   (1 0) (F_n     F_(n-1))
+
+F0 = 0, F1 = 1, F2 = 1
+
+[[1,1],[0,1]]이 계속 곱해지는 식이 완성!
+```
+
+코드는 위 문제를 아주 조금만 변형하면 된다.
