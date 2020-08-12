@@ -2,7 +2,7 @@
 
 # 개념
 
-
+둘로 나눠 탐색하는 알고리즘이다. 첫 항부터 탐색하면 O(n)인데, 배열이 정렬돼있다면 중앙부터 탐색하여 탐색범위를 절반씩 줄일 수 있으므로 O(log2n)으로 탐색할 수 있다. 
 
 
 
@@ -82,5 +82,52 @@ def BOJ_1920():
         res += "1\n" if i in A else "0\n"
     print(res)
 BOJ_1920()
+```
+
+
+
+## 숫자 카드 2
+
+[문제](https://www.acmicpc.net/problem/10816)
+
+이분탐색의 대상에 **중복**이 있는 경우다. 중복될 경우, 각 항이 몇 개씩 있는지 세는 것이 관건이다.
+
+이분 탐색 알고리즘의 핵심 부분은 중앙값과 비교하는 부분인데, 중복이 없을 경우 어떤 조건문이 먼저 오든 상관없었지만 중복이 있는 경우 **항상** 같은지 먼저 비교해줘야한다.
+
+같을 경우 해당 범위에서 count로 같은 개수를 셀 수 있는데, 만약 작거나 큰것을 먼저 조건문으로 걸어버리면 자칫하면 몇 개 빼먹을 수 있기때문이다.
+
+추가로, 이 문제는 탐색의 대상뿐만 아니라 탐색하고자하는 숫자들도 중복이 허용되는데 이때는 시간의 효율성을 위해 dictionary를 이용해준다. 이미 찾았던 적 있는 숫자라면 바로 값을 얻어올 수 있다.
+
+```python
+import sys
+N = int(sys.stdin.readline().rstrip())
+N_CARDS = list(map(int, sys.stdin.readline().split()))
+
+M = int(sys.stdin.readline().rstrip())
+M_CARDS = list(map(int, sys.stdin.readline().split()))
+
+N_CARDS.sort()
+
+def binarySearch(x, arr, start, end):
+    if start > end: 
+        return 0
+    mid = (start + end) // 2
+    
+    if x==arr[mid]: # 얘 먼저해줘야한다.
+        return arr[start:end+1].count(x)
+        
+    elif x < arr[mid]:
+        return binarySearch(x, arr, start, mid-1)
+    
+    else:
+        return binarySearch(x, arr, mid+1, end)
+    
+
+ans = {}
+for m in M_CARDS:
+    if m not in ans.keys():
+        ans[m] = binarySearch(m, N_CARDS, 0, len(N_CARDS)-1) 
+    print(ans[m], end=" ")
+
 ```
 
