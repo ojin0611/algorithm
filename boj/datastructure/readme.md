@@ -74,8 +74,118 @@ dq.reverse() # deque(['e','t','l'])
 
 
 
+## 우선순위 큐
+
+우선순위의 개념을 큐에 도입한 자료구조.
+
+배열, 연결리스트, 힙으로 구현이 가능한데 이 중 힙으로 구현하는 것이 가장 효율적이다.
+
+
+
+## 힙
+
+힙은 최댓값, 최솟값을 찾아내는 연산을 쉽게하기 위해 고안된 자료형이다.
+
+힙(Heap)은 각 노드의 키(Key)값이 그 자식의 키값보다 작지않거나, 그 자식의 키값보다 크지않은 완전 이진트리(Complete Binary Tree)이다. 힙을 저장하는 자료구조는 배열이다. 
+
+> 트리에 관한 용어정리 (트리에 대해서는 이후에 따로 다루기)
+>
+> Node(노드) : 트리를 구성하고있는 각각의 요소
+>
+> Edge(간선) : 트리를 구성하기위해 노드와 노드를 연결하는 선을 의미한다.
+>
+> Root Node(루트 노드) : 트리구조에서 최상위에 있는 노드
+>
+> Terminal Node(= leaf Node, 단말 노드) : 하위에 다른 노드가 연결되어있지않은 노드
+>
+> Internal Node(내부노드, 비단말 노드) : 단말노드를 제외한 모든 노드. 루트노드도 포함
+
+
+
+### 삽입
+
+삽입된 값은 완전 이진트리를 만족시키면서 최하단부에 노드를 추가하고 값을 부여해준다. 부모 노드의 값과 비교해 삽입된 값이 더 크다면 swap해준다. 이를 **반복한다**. swap하지않거나, 루트 노드에 도달하면 swap을 종료한다. O(logn)
+
+![img](./heap_insert.png)
+
+
+
+
+
+### 삭제
+
+보통 최상단 노드를 삭제한다. 힙의 용도는 최대값(또는 최소값)을 루트 노드에 놓아 바로 꺼내쓸 수있도록 하는것이기때문이다. O(logn)
+
+삭제한 후에 가장 최하단부 왼쪽에 위치한 노드(가장 마지막에 추가한 노드)를 루트 노드로 이동시킨다.
+
+루트 노드값이 자식 노드보다 작을경우, 자식노드중 가장 큰 값을 루트노드와 swap한다. 이를 반복한다. swap하지않았거나, swap한 이후 노드가 터미널노드에 도달하면 swap을 종료한다.
+
+![img](./heap_delete.png)
+
+## python heap
+
+heapq 모듈은 이진트리 기반의 최소힙 자료구조를 제공한다. 
+
+heapq 모듈은 파이썬의 보통 리스트를 최소힙처럼 다룰수 있도록 도와준다. 별개의 자료구조가 아니다!
+
+그래서 빈 리스트를 생성한다음 heapq 모듈의 함수를 호출할 때마다 이 리스트를 인자로 넘겨야한다.
+
+결과적으로 heapq 모듈을통해 원소를 추가하거나 삭제한 리스트가 그냥 최소힙이다. 
+
+```python
+import heapq
+
+heap = []
+
+# 원소 삽입
+heapq.heappush(heap, 4) # O(logN)
+heapq.heappush(heap, 1)
+heapq.heappush(heap, 7)
+heapq.heappush(heap, 3)
+print(heap) # [1, 3, 7, 4]
+
+# 원소 삭제
+print(heapq.heappop(heap)) # 1
+print(heap) # [3, 4, 7]
+
+# 삭제하지 않고 값 얻기
+heap[0]
+
+# 기존 리스트를 힙으로 변환
+heap = [4,1,7,3,8,5]
+heapq.heapify(heap)
+print(heap) # [1,3,5,4,8,7]
+```
+
+
+
+최대 힙을 구하기 위해선 위 코드를 **응용**하면 된다. heap에 값을 삽입할 때 튜플을 원소로 추가하면, 튜플 내에서 맨 앞의 값 기준으로 최소힙이 구성되는 원리를 이용한다.
+
+```python
+import heapq
+
+nums = [4, 1, 7, 3, 8, 5]
+heap = []
+
+for num in nums:
+  heapq.heappush(heap, (-num, num))  # (우선 순위, 값)
+
+while heap:
+  print(heapq.heappop(heap)[1])  # index 1
+```
+
+이러면 최소힙이 -num으로 정렬되므로 최대힙이 된다!
+
+값을 읽어올때는 튜플의 2번째 값을 읽어온다.
+
+
+
+
+
+
 
 # 문제
+
 ## 스택 수열
 [문제](https://www.acmicpc.net/problem/1874)  
 
@@ -170,5 +280,49 @@ for _ in range(T):
     li = stdin.readline().rstrip()[1:-1].split(',')
     if n == 0 : []
     stdout.write(AC(com, n, li))
+```
+
+
+
+## 최대 힙 / 최소 힙
+
+[최대힙 문제](https://www.acmicpc.net/problem/11279)
+
+heap 개념을 완벽하게 이해했다면 시간단축을 위해 heapq 라이브러리를 이용하자.
+
+```python
+# 최대힙
+# 내 코드..는 https://www.acmicpc.net/source/21735293
+from heapq import *
+from sys import stdin
+
+heap = []
+input()
+for x in map(int, stdin): # 숫자 한번에 받아보리기
+    if x:
+        heappush(heap, -x)
+    else:
+        print(-heappop(heap) if heap else 0)
+```
+
+
+
+[최소힙 문제](https://www.acmicpc.net/problem/1927)
+
+```python
+# 최소힙
+import heapq
+import sys
+
+heap = []
+int(input())
+for i in map(int, sys.stdin):
+    if i: 
+        heapq.heappush(heap, i)
+    else:
+        if heap:
+            print(heapq.heappop(heap))
+        else:
+            print(0)
 ```
 
