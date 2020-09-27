@@ -232,6 +232,7 @@ def solution(routes):
 ## 백준 2352 : 반도체 설계
 LIS 문제 (시간 통과하려면 O(NlogN)으로 풀어야함)
 [참고 링크](https://codedrive.tistory.com/336)
+[bisect 모듈 이용](https://suri78.tistory.com/204)
 ```python
 # O(n^2)
 n = int(input())
@@ -246,7 +247,38 @@ for i in range(1,n): # index 1씩 증가
 print(dp[-1])
 
 # O(nlogn)
-
+from bisect import bisect_left 
+n = input() 
+dest = list(map(int, input().split())) 
+link = [] 
+for d in dest: 
+    if not link or link[-1] < d: 
+        link.append(d) 
+    else: 
+        link[bisect_left(link, d)] = d 
+print(len(link))
+'''
+def bisect_left(arr, val): 
+    s, e = 0, len(arr)-1 
+    while s <= e: 
+        m = (s+e)//2 
+        if arr[m] > val: 
+            e = m-1 
+        else: 
+            s = m+1 
+    return s 
+    
+n = input() 
+dest = list(map(int, input().split())) 
+link = [] 
+for d in dest: 
+    if not link or link[-1] < d: 
+        link.append(d) 
+    else: 
+        link[bisect_left(link, d)] = d 
+        
+print(len(link))
+'''
 
 ```
 
@@ -387,6 +419,33 @@ N <= 16이기때문에 비트마스킹 방법을 사용할 수 있다.
 
 
 ```python
+import sys
+ 
+N=int(sys.stdin.readline()) # 도시의 수
+W=[] # 도시에서 도시로 가는 비용
+INF=sys.maxsize
+for _ in range(N):
+    W.append(list(map(int,sys.stdin.readline().split())))
+DP=[[None]*(1<<N) for _ in range(N)]
+
+
+def find_path(last,visited):#현재위치
+    if visited == (1<<N)-1:  # 모두 방문햇다면
+        return W[last][0] or INF  # 0으로 가는방법 반환 없으면 INF반환
+ 
+    if DP[last][visited] is not None:  # 이미 계산되어잇다면
+        return DP[last][visited]  # 있는값 반환
+ 
+    tmp=INF
+    for city in range(N):#모든 도시에서
+        if visited & (1 << city) == 0 and W[last][city] != 0:#아직 방문하지 않았고 cur->i로 가는길이 있다면
+            tmp=min(tmp,
+                    find_path(city,visited | (1<<city)) + W[last][city])
+    DP[last][visited]=tmp
+    return tmp
+ 
+
+print(find_path(0,1<<0))
 
 
 ```
