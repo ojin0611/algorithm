@@ -73,6 +73,8 @@ def solution(n, results):
 
 ## 프로그래머스 그래프 3. 방의 개수
 
+[참고할 테스트케이스](https://www.leejg.me/algorithm-test/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EA%B3%A0%EB%93%9D%EC%A0%90-kit-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%ED%92%80%EC%9D%B4/3-%EB%B0%A9%EC%9D%98-%EA%B0%9C%EC%88%98)
+
 방문했던 노드를 다시 방문할 때 방이 1개씩 추가된다. 따라서 노드별로 방문여부(visit)를 기록하고, 이미 방문했던 기록이 있으면 방의 개수에 1을 더해준다.
 
 더불어 아래 내용을 고려해야한다.
