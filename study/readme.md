@@ -13,3 +13,26 @@
 8주차 : DFS/BFS
 9주차 : 완전탐색
 
+---
+
+Team Note
+
+1. Data Structure (Stack, Queue, Hash, Heap, Graph)
+    1. Stack
+    2. Queue
+    3. Hash
+    4. Heap
+    5. Graph
+2. Sorting
+    1. Insertion Sort
+    2. ..
+
+3. Dynamic Programming
+
+4. Greedy
+
+5. Search (Binary Search, DFS/BFS, 완전 탐색)
+    1. Binary Search
+    2. BFS
+    3. DFS
+    4. 완전 탐색
