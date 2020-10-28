@@ -116,3 +116,69 @@ def solution(arrows):
             prev = now
     return answer
 ```
+
+
+## 프로그래머스 DFS/BFS 1. 타겟 넘버
+
+```python
+def solution(numbers, target):
+    final_level = len(numbers)
+    cnt = 0
+    # total : 현재 레벨까지 숫자들의 합
+    def dfs(L, total):
+        if L == final_level:
+            if total == target:
+                nonlocal cnt
+                cnt += 1
+        else:
+            dfs(L+1, total+numbers[L])
+            dfs(L+1, total-numbers[L])
+    
+    dfs(0,0)
+    return cnt
+```
+
+
+## 프로그래머스 DFS/BFS 4. 여행경로
+
+```python
+def dfs(graph, N, path, here):
+    path.append(here)
+    # 모든 항공권 사용
+    if len(path) == N+1:
+        return True
+    
+    if here not in graph:
+        path.pop()
+        return False
+    
+    for i in range(len(graph[here])):
+        there = graph[here].pop()
+        
+        if dfs(graph, N, path, there):
+            return True
+        
+        graph[here].insert(0, there)
+        
+    path.pop()
+    return False
+
+def solution(tickets):
+    # graph 만들기
+    routes = dict()
+
+    for (start, end) in tickets:
+        routes[start] = routes.get(start, []) + [end]  
+    
+    for r in routes.keys():
+        routes[r].sort(reverse=True)
+    
+    # dfs
+    N = len(tickets)
+    path = []
+    
+    if dfs(routes, N, path, "ICN"):
+        answer = path            
+        
+    return answer
+```

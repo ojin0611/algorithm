@@ -17,21 +17,26 @@
 
 Team Note
 
-1. Data Structure (Stack, Queue, Hash, Heap, Graph)
+1. Data Structure (Stack, Queue, Hash, Heap)
     1. Stack
     2. Queue
     3. Hash
     4. Heap
-    5. Graph
-2. Sorting
+
+2. Graph
+    1. Basic
+    2. Kruskal
+    3. Topology
+
+3. Sorting
     1. Insertion Sort
     2. ..
 
-3. Dynamic Programming
+4. Dynamic Programming
 
-4. Greedy
+5. Greedy
 
-5. Search (Binary Search, DFS/BFS, 완전 탐색)
+6. Search (Binary Search, DFS/BFS, 완전 탐색)
     1. Binary Search
     2. BFS
     3. DFS
